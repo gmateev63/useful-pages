@@ -1,2 +1,3 @@
 Foldef for any useful pages
-index.html
+<br>
+<a href="https://www.google.com" target="_blank">Visit Google</a>
