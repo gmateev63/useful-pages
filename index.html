@@ -1,30 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bg">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My Simple Web Page</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      margin: 50px;
-      background-color: #f0f0f0;
-    }
-    h1 {
-      color: #333;
-    }
-    p {
-      color: #666;
-    }
-    a {
-      color: #007BFF;
-      text-decoration: none;
-    }
-  </style>
+  <meta charset="UTF-8">
+  <title>Моят Сайт</title>
+  <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-  <h1>Welcome to My Simple Web Page!</h1>
-  <a href="dimicomp.html">Dimi's computer</a>
+  <header>
+    Моят Демо Сайт
+  </header>
+
+  <div class="container">
+    <div class="sidebar">
+      <h2>Меню</h2>
+      <a href="page1.html" target="contentFrame">Страница 1</a>
+      <a href="page2.html" target="contentFrame">Страница 2</a>
+      <a href="page3.html" target="contentFrame">Страница 3</a>
+    </div>
+
+    <div class="content">
+      <iframe name="contentFrame" src="page1.html"></iframe>
+    </div>
+  </div>
 </body>
 </html>
