@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Date to Unix Timestamp Converter</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 2rem;
+      background-color: #f4f4f4;
+    }
+    input, button {
+      padding: 0.5rem;
+      font-size: 1rem;
+      margin-top: 1rem;
+    }
+    #result {
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Convert Date to Unix Timestamp</h1>
+  <label for="dateInput">Select a date:</label><br>
+  <input type="date" id="dateInput"><br>
+  <button onclick="convertDate()">Convert</button>
+  <div id="result"></div>
+
+  <script>
+    function convertDate() {
+      const input = document.getElementById('dateInput').value;
+      if (!input) {
+        document.getElementById('result').innerText = 'Please select a date.';
+        return;
+      }
+
+      const date = new Date(input);
+      const unixTimestamp = Math.floor(date.getTime() / 1000);
+      document.getElementById('result').innerText = 'Unix Timestamp: ' + unixTimestamp;
+    }
+  </script>
+</body>
+</html>
