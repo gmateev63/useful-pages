@@ -1,12 +1,88 @@
 <!DOCTYPE html>
-<html lang="bg">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Страница 3</title>
-  <link rel="stylesheet" href="css/page.css">
+  <meta charset="UTF-8" />
+  <title>Back4App Book Manager</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background: #f9f9f9;
+    }
+    h1 { color: #333; }
+    label { display: block; margin-top: 10px; }
+    input { padding: 5px; width: 300px; }
+    button { margin-top: 10px; padding: 8px 12px; }
+    #book-list { margin-top: 30px; }
+    .book-item { padding: 10px; background: #fff; margin-bottom: 10px; border: 1px solid #ddd; }
+  </style>
 </head>
 <body>
-  <h1>Контакти и още</h1>
-  <p>На тази страница можеш да добавиш контактна информация, линкове към профили или друга полезна информация.</p>
+  <h1>📚 Book Manager (Back4App)</h1>
+
+  <form id="book-form">
+    <label>Title: <input type="text" id="title" required /></label>
+    <label>Author: <input type="text" id="author" required /></label>
+    <label>Pages: <input type="number" id="pages" required /></label>
+    <button type="submit">Add Book</button>
+  </form>
+
+  <div id="book-list">
+    <h2>📋 Book List</h2>
+    <div id="books"></div>
+  </div>
+
+  <script>
+    const APP_ID = 'osduWkoS7yC6INySrayxtmE66GW4QNFMxxHNGbJW';
+    const API_KEY = 'zn55xQscjJxLPLCRDUQXE5QrwpiaSRJHtNUPFTQy';
+    const BASE_URL = 'https://parseapi.back4app.com/classes/Book';
+
+    const headers = {
+      'X-Parse-Application-Id': APP_ID,
+      'X-Parse-REST-API-Key': API_KEY,
+      'Content-Type': 'application/json'
+    };
+
+    const bookForm = document.getElementById('book-form');
+    const booksDiv = document.getElementById('books');
+
+    // Fetch and display all books
+    async function loadBooks() {
+      const res = await fetch(BASE_URL, { headers });
+      const data = await res.json();
+      booksDiv.innerHTML = '';
+      data.results.forEach(book => {
+        const div = document.createElement('div');
+        div.className = 'book-item';
+        div.innerHTML = `<strong>${book.title}</strong> by ${book.author} (${book.pages} pages)`;
+        booksDiv.appendChild(div);
+      });
+    }
+
+    // Submit form to add a new book
+    bookForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const title = document.getElementById('title').value;
+      const author = document.getElementById('author').value;
+      const pages = parseInt(document.getElementById('pages').value);
+
+      const res = await fetch(BASE_URL, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({ title, author, pages })
+      });
+
+      if (res.ok) {
+        alert('Book added!');
+        bookForm.reset();
+        loadBooks();
+      } else {
+        alert('Error adding book.');
+      }
+    });
+
+    // Initial load
+    loadBooks();
+  </script>
 </body>
 </html>
